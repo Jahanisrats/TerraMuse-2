@@ -79,7 +79,7 @@ const NewArrivals: React.FC = () => {
         {/* Background Elements */}
         <div className="absolute inset-0 z-0 flex justify-center items-start pt-10 opacity-30 pointer-events-none">
             <div className="w-[800px] h-[800px] rounded-full bg-sand/40 blur-3xl mix-blend-multiply"></div>
-            <div className="absolute top-20 right-20 w-[400px] h-[400px] rounded-full bg-accent-sage/20 blur-3xl mix-blend-multiply"></div>
+            <div className="absolute top-20 right-20 w-[400px] h-[400px] rounded-full bg-accent-orange/20 blur-3xl mix-blend-multiply"></div>
         </div>
         <svg className="absolute -right-20 top-0 h-[300px] w-auto opacity-20 text-text-main z-0 scroll-animate fade-in delay-200" fill="none" viewBox="0 0 200 400" xmlns="http://www.w3.org/2000/svg">
             <path d="M100 400 C100 300 150 200 180 100 M100 400 C100 300 50 200 20 100" stroke="currentColor" strokeWidth="2"></path>

@@ -12,12 +12,12 @@ const Apparel: React.FC = () => {
   const sizes = ['XS', 'S', 'M', 'L', 'XL'];
   
   // Mapping UI color buttons to product color data
+  // Updated filters to include 'Orange' which groups earthy tones
   const colorFilters = [
-    { hex: '#8c3a28', name: 'Terracotta', matches: ['Terracotta'] },
+    { hex: '#E86C3F', name: 'Orange', matches: ['Terracotta', 'Rust Clay', 'Orange'] },
     { hex: '#5d6b58', name: 'Sage', matches: ['Sage Green'] },
     { hex: '#e3d8c8', name: 'Neutrals', matches: ['Sand', 'Ivory', 'Natural'] },
     { hex: '#1a1714', name: 'Dark', matches: ['Charon Charcoal', 'Black'] },
-    { hex: '#b87a6d', name: 'Clay', matches: ['Rust Clay', 'Clay'] },
   ];
 
   // Helper to check if a product matches a category

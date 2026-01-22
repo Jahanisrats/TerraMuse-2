@@ -23,7 +23,7 @@ const Home: React.FC = () => {
     <div className="flex-grow flex items-center justify-center relative px-6 lg:px-12 py-12 lg:py-0 min-h-[calc(100vh-80px)] overflow-hidden">
       {/* Abstract Background Decorations */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
-        <div className="absolute top-[10%] left-[5%] w-[400px] h-[400px] bg-accent-sage/20 mix-blend-multiply filter blur-3xl rounded-full animate-pulse" style={{ animationDuration: '8s' }}></div>
+        <div className="absolute top-[10%] left-[5%] w-[400px] h-[400px] bg-accent-orange/20 mix-blend-multiply filter blur-3xl rounded-full animate-pulse" style={{ animationDuration: '8s' }}></div>
         <div className="absolute bottom-[10%] right-[10%] w-[500px] h-[500px] bg-accent-teal/20 mix-blend-multiply filter blur-3xl rounded-full animate-pulse" style={{ animationDuration: '10s' }}></div>
         <div className="absolute top-[30%] left-[40%] w-[300px] h-[300px] bg-primary/10 mix-blend-multiply filter blur-3xl rounded-full animate-pulse" style={{ animationDuration: '12s' }}></div>
         
