@@ -39,7 +39,7 @@ const Home: React.FC = () => {
         {/* Left Content */}
         <div className="lg:col-span-5 flex flex-col gap-8 order-2 lg:order-1 text-center lg:text-left">
           <div className="space-y-4">
-            <span className="inline-block text-primary font-medium tracking-[0.2em] text-xs uppercase scroll-animate fade-in">Spring Collection '24</span>
+            <span className="inline-block text-primary font-medium tracking-[0.2em] text-xs uppercase scroll-animate fade-in">Spring Collection '26</span>
             <h1 className="text-text-main text-5xl sm:text-6xl xl:text-7xl font-serif font-light leading-[1.1] text-shadow-soft scroll-animate delay-100">
               Woven from <br/>
               <span className="italic font-normal text-primary">the Earth</span>

@@ -88,7 +88,7 @@ const NewArrivals: React.FC = () => {
 
         <div className="relative z-10 container mx-auto px-6 text-center">
             <div className="inline-block relative scroll-animate zoom-in">
-                <span className="text-xs uppercase tracking-[0.3em] text-accent-sage font-bold mb-3 block">Spring Collection 2024</span>
+                <span className="text-xs uppercase tracking-[0.3em] text-accent-sage font-bold mb-3 block">Spring Collection 2026</span>
                 <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl text-text-main leading-tight relative">
                     Fresh From <br/>
                     <span className="font-script text-6xl md:text-8xl lg:text-9xl text-primary -mt-4 block transform -rotate-2">the Earth</span>
