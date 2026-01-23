@@ -2,7 +2,11 @@ import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import SearchOverlay from './SearchOverlay';
 
-const Navigation: React.FC = () => {
+interface NavigationProps {
+    onOpenMuse: () => void;
+}
+
+const Navigation: React.FC<NavigationProps> = ({ onOpenMuse }) => {
   const location = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
@@ -48,6 +52,14 @@ const Navigation: React.FC = () => {
             >
               <span className="material-symbols-outlined text-[22px]">search</span>
             </button>
+            <button
+                aria-label="Ask Muse"
+                className="flex items-center justify-center p-2 rounded-full hover:bg-black/5 transition-colors text-primary group"
+                onClick={onOpenMuse}
+                title="Ask Muse AI Stylist"
+            >
+                <span className="material-symbols-outlined text-[22px] group-hover:animate-pulse">auto_awesome</span>
+            </button>
             <Link 
               to="/login" 
               aria-label="Account" 
@@ -80,6 +92,10 @@ const Navigation: React.FC = () => {
             </div>
             <nav className="flex flex-col gap-6 text-xl font-serif text-text-main">
               <button className="text-left" onClick={() => { setMobileMenuOpen(false); setSearchOpen(true); }}>Search</button>
+              <button className="text-left flex items-center gap-2 text-primary" onClick={() => { setMobileMenuOpen(false); onOpenMuse(); }}>
+                  <span className="material-symbols-outlined">auto_awesome</span>
+                  Ask Muse
+              </button>
               <Link to="/login" onClick={() => setMobileMenuOpen(false)}>Account</Link>
               <Link to="/new-arrivals" onClick={() => setMobileMenuOpen(false)}>New Arrivals</Link>
               <Link to="/apparel" onClick={() => setMobileMenuOpen(false)}>Apparel</Link>

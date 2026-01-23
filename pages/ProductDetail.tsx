@@ -3,6 +3,216 @@ import { useParams, Link, useNavigate } from 'react-router-dom';
 import { allProducts } from '../data';
 import { Product } from '../types';
 
+interface Review {
+    id: number;
+    author: string;
+    location: string;
+    date: string;
+    rating: number;
+    title: string;
+    content: string;
+    verified: boolean;
+}
+
+const MOCK_REVIEWS: Review[] = [
+    {
+        id: 1,
+        author: "Sarah Jenkins",
+        location: "Portland, OR",
+        date: "October 14, 2023",
+        rating: 5,
+        title: "Absolutely beautiful",
+        content: "The fabric is even softer than I imagined. It drapes perfectly and feels so breathable. I've already received so many compliments! Definitely a staple piece for my wardrobe.",
+        verified: true
+    },
+    {
+        id: 2,
+        author: "Michelle K.",
+        location: "Austin, TX",
+        date: "September 28, 2023",
+        rating: 5,
+        title: "Worth every penny",
+        content: "I appreciate the sustainable aspect of this brand. You can really feel the quality in the craftsmanship. The color is exactly as pictured.",
+        verified: true
+    },
+    {
+        id: 3,
+        author: "Elena R.",
+        location: "Santa Fe, NM",
+        date: "August 5, 2023",
+        rating: 4,
+        title: "Lovely color",
+        content: "The color is slightly deeper than it appeared on my screen, but it's actually more versatile this way. Very happy with my purchase, though I wish shipping was a bit faster.",
+        verified: true
+    }
+];
+
+const StarRating: React.FC<{ rating: number; size?: string; interactive?: boolean; onRate?: (r: number) => void }> = ({ rating, size = "text-base", interactive = false, onRate }) => {
+    const [hoverRating, setHoverRating] = useState(0);
+
+    return (
+        <div className={`flex items-center gap-0.5 text-primary ${size}`} onMouseLeave={() => interactive && setHoverRating(0)}>
+            {[1, 2, 3, 4, 5].map((star) => (
+                <button
+                    key={star}
+                    type="button"
+                    onClick={() => interactive && onRate && onRate(star)}
+                    onMouseEnter={() => interactive && setHoverRating(star)}
+                    className={`${interactive ? 'cursor-pointer hover:scale-110 transition-transform' : 'cursor-default'}`}
+                    disabled={!interactive}
+                >
+                    <span 
+                        className="material-symbols-outlined block" 
+                        style={{ 
+                            fontVariationSettings: `'FILL' ${star <= (hoverRating || rating) ? 1 : 0}, 'wght' 400, 'GRAD' 0, 'opsz' 24` 
+                        }}
+                    >
+                        star
+                    </span>
+                </button>
+            ))}
+        </div>
+    );
+};
+
+const ReviewsSection: React.FC = () => {
+    const [reviews, setReviews] = useState<Review[]>(MOCK_REVIEWS);
+    const [isWriting, setIsWriting] = useState(false);
+    const [newReview, setNewReview] = useState({ rating: 5, title: '', content: '', author: '' });
+
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+        const review: Review = {
+            id: reviews.length + 1,
+            author: newReview.author || "Anonymous",
+            location: "Unknown",
+            date: new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }),
+            rating: newReview.rating,
+            title: newReview.title,
+            content: newReview.content,
+            verified: false
+        };
+        setReviews([review, ...reviews]);
+        setIsWriting(false);
+        setNewReview({ rating: 5, title: '', content: '', author: '' });
+    };
+
+    const average = (reviews.reduce((acc, r) => acc + r.rating, 0) / reviews.length).toFixed(1);
+
+    return (
+        <section id="reviews" className="mb-24 pt-16 border-t border-text-main/10 scroll-animate fade-in">
+            <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
+                <div>
+                    <h2 className="font-serif text-3xl text-text-main mb-4">Customer Reviews</h2>
+                    <div className="flex items-center gap-4">
+                        <div className="flex items-baseline gap-2">
+                            <span className="text-5xl font-serif text-text-main">{average}</span>
+                            <span className="text-text-sub font-light">out of 5</span>
+                        </div>
+                        <div className="h-8 w-px bg-text-main/20"></div>
+                        <div className="flex flex-col justify-center">
+                            <StarRating rating={Math.round(parseFloat(average))} />
+                            <span className="text-sm text-text-sub mt-1">{reviews.length} Reviews</span>
+                        </div>
+                    </div>
+                </div>
+                <button 
+                    onClick={() => setIsWriting(!isWriting)}
+                    className="px-8 py-3 bg-white border border-text-main/20 text-text-main font-bold uppercase tracking-widest text-sm rounded-full hover:bg-text-main hover:text-white transition-all shadow-sm hover:shadow-md"
+                >
+                    {isWriting ? 'Cancel Review' : 'Write a Review'}
+                </button>
+            </div>
+
+            {/* Write Review Form */}
+            {isWriting && (
+                <div className="bg-[#f8f6f3] p-8 rounded-2xl mb-12 animate-fadeIn border border-text-main/5">
+                    <h3 className="font-serif text-xl mb-6 text-text-main">Share your experience</h3>
+                    <form onSubmit={handleSubmit} className="space-y-6 max-w-2xl">
+                        <div>
+                            <label className="block text-xs font-bold uppercase tracking-widest text-text-sub mb-2">Rating</label>
+                            <StarRating 
+                                rating={newReview.rating} 
+                                interactive={true} 
+                                onRate={(r) => setNewReview({...newReview, rating: r})} 
+                                size="text-2xl"
+                            />
+                        </div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label className="block text-xs font-bold uppercase tracking-widest text-text-sub mb-2">Name</label>
+                                <input 
+                                    required
+                                    className="w-full bg-white border border-text-main/10 rounded-lg px-4 py-3 text-text-main focus:ring-1 focus:ring-primary focus:border-primary outline-none"
+                                    placeholder="Your name"
+                                    value={newReview.author}
+                                    onChange={e => setNewReview({...newReview, author: e.target.value})}
+                                />
+                            </div>
+                            <div>
+                                <label className="block text-xs font-bold uppercase tracking-widest text-text-sub mb-2">Review Title</label>
+                                <input 
+                                    required
+                                    className="w-full bg-white border border-text-main/10 rounded-lg px-4 py-3 text-text-main focus:ring-1 focus:ring-primary focus:border-primary outline-none"
+                                    placeholder="Summary of your experience"
+                                    value={newReview.title}
+                                    onChange={e => setNewReview({...newReview, title: e.target.value})}
+                                />
+                            </div>
+                        </div>
+                        <div>
+                            <label className="block text-xs font-bold uppercase tracking-widest text-text-sub mb-2">Review</label>
+                            <textarea 
+                                required
+                                rows={4}
+                                className="w-full bg-white border border-text-main/10 rounded-lg px-4 py-3 text-text-main focus:ring-1 focus:ring-primary focus:border-primary outline-none resize-none"
+                                placeholder="Tell us what you liked or didn't like..."
+                                value={newReview.content}
+                                onChange={e => setNewReview({...newReview, content: e.target.value})}
+                            />
+                        </div>
+                        <button type="submit" className="px-8 py-3 bg-primary text-white font-bold uppercase tracking-widest text-sm rounded-full hover:bg-[#d65a2e] transition-colors shadow-lg shadow-primary/20">
+                            Submit Review
+                        </button>
+                    </form>
+                </div>
+            )}
+
+            {/* Reviews Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                {reviews.map((review) => (
+                    <div key={review.id} className="p-8 bg-white rounded-2xl border border-text-main/5 shadow-sm hover:shadow-md transition-shadow">
+                        <div className="flex justify-between items-start mb-4">
+                            <div className="flex items-center gap-3">
+                                <div className="w-10 h-10 rounded-full bg-accent-sage/20 text-accent-sage flex items-center justify-center font-serif font-bold text-lg">
+                                    {review.author.charAt(0)}
+                                </div>
+                                <div>
+                                    <div className="flex items-center gap-2">
+                                        <h4 className="font-bold text-text-main text-sm">{review.author}</h4>
+                                        {review.verified && (
+                                            <span className="text-[10px] bg-primary/10 text-primary px-1.5 py-0.5 rounded-full flex items-center gap-0.5">
+                                                <span className="material-symbols-outlined text-[10px]">check</span> Verified
+                                            </span>
+                                        )}
+                                    </div>
+                                    <p className="text-xs text-text-sub">{review.location}</p>
+                                </div>
+                            </div>
+                            <span className="text-xs text-text-sub/60">{review.date}</span>
+                        </div>
+                        <div className="mb-3">
+                            <StarRating rating={review.rating} />
+                        </div>
+                        <h5 className="font-serif text-lg text-text-main mb-2">{review.title}</h5>
+                        <p className="text-text-main/70 text-sm leading-relaxed">{review.content}</p>
+                    </div>
+                ))}
+            </div>
+        </section>
+    );
+};
+
 const ProductDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
@@ -114,12 +324,14 @@ const ProductDetail: React.FC = () => {
                <div className="flex items-center justify-between mb-8 border-b border-text-main/10 pb-6">
                    <span className="text-2xl font-medium text-text-main">${product.price}</span>
                    <div className="flex items-center gap-1 text-primary">
-                       <span className="material-symbols-outlined text-sm">star</span>
-                       <span className="material-symbols-outlined text-sm">star</span>
-                       <span className="material-symbols-outlined text-sm">star</span>
-                       <span className="material-symbols-outlined text-sm">star</span>
-                       <span className="material-symbols-outlined text-sm">star_half</span>
-                       <span className="text-xs text-text-sub ml-2 underline decoration-text-sub/30 decoration-1 underline-offset-2">(12 Reviews)</span>
+                        <a href="#reviews" className="flex items-center gap-1 group">
+                           <span className="material-symbols-outlined text-sm" style={{ fontVariationSettings: "'FILL' 1" }}>star</span>
+                           <span className="material-symbols-outlined text-sm" style={{ fontVariationSettings: "'FILL' 1" }}>star</span>
+                           <span className="material-symbols-outlined text-sm" style={{ fontVariationSettings: "'FILL' 1" }}>star</span>
+                           <span className="material-symbols-outlined text-sm" style={{ fontVariationSettings: "'FILL' 1" }}>star</span>
+                           <span className="material-symbols-outlined text-sm" style={{ fontVariationSettings: "'FILL' 1" }}>star</span>
+                           <span className="text-xs text-text-sub ml-2 underline decoration-text-sub/30 decoration-1 underline-offset-2 group-hover:text-primary transition-colors">(3 Reviews)</span>
+                       </a>
                    </div>
                </div>
 
@@ -204,6 +416,9 @@ const ProductDetail: React.FC = () => {
                </div>
            </div>
        </div>
+
+       {/* Reviews Section */}
+       <ReviewsSection />
 
        {/* Related Products */}
        {relatedProducts.length > 0 && (

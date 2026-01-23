@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { HashRouter as Router, Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import Navigation from './components/Navigation';
 import Footer from './components/Footer';
@@ -12,6 +12,7 @@ import CartDrawer from './pages/CartDrawer';
 import ShoppingBag from './pages/ShoppingBag';
 import ProductDetail from './pages/ProductDetail';
 import Login from './pages/Login';
+import MuseChat from './components/MuseChat';
 
 // Hook to handle scroll animations
 const useScrollObserver = () => {
@@ -58,6 +59,7 @@ const useScrollObserver = () => {
 const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const location = useLocation();
     useScrollObserver(); // Activate scroll animations
+    const [isMuseOpen, setIsMuseOpen] = useState(false);
     
     // Don't show nav/footer on cart drawer route since it handles its own background/overlay
     const isOverlay = location.pathname === '/cart-drawer';
@@ -68,8 +70,9 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 
     return (
         <div className="flex flex-col min-h-screen">
-            <Navigation />
+            <Navigation onOpenMuse={() => setIsMuseOpen(!isMuseOpen)} />
             {children}
+            <MuseChat isOpen={isMuseOpen} onClose={() => setIsMuseOpen(false)} />
             <Footer />
         </div>
     );
