@@ -3,7 +3,12 @@ import { allProducts } from "../data";
 
 // Initialize the client
 // API Key must be provided in the environment environment
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+const apiKey = "AIzaSyBusjk62lcduBdfEYLNaao_Z8l6BJ1COJY";
+let ai: GoogleGenAI | null = null;
+
+if (apiKey) {
+    ai = new GoogleGenAI({ apiKey });
+}
 
 // Construct a context string from the product data
 const productContext = allProducts.map(p => 
@@ -27,6 +32,19 @@ Rules:
 `;
 
 export const createChatSession = () => {
+    if (!ai) {
+        console.warn("Gemini API Key is missing. Chat functionality will be limited.");
+        // Return a mock object or throw a handled error
+        // For now, let's return a mock that echoes back or explains the issue
+        return {
+            sendMessage: async () => ({
+                response: {
+                    text: () => "I'm currently offline (API Key missing). Please check the configuration."
+                }
+            })
+        };
+    }
+
     return ai.chats.create({
         model: 'gemini-3-flash-preview',
         config: {
