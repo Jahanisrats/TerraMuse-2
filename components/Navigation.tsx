@@ -98,19 +98,29 @@ const Navigation: React.FC<NavigationProps> = ({ onOpenMuse }) => {
             </Link>
             <button 
               aria-label="Menu" 
-              className="md:hidden flex items-center justify-center p-2 rounded-full hover:bg-black/5 transition-colors text-text-main"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="md:hidden flex items-center justify-center p-3 rounded-full hover:bg-primary/10 transition-colors text-text-main active:bg-primary/20"
+              onClick={() => setMobileMenuOpen(true)}
             >
-              <span className="material-symbols-outlined text-[24px]">menu</span>
+              <span className="material-symbols-outlined text-[28px] text-primary">menu</span>
             </button>
           </div>
         </div>
 
-        {/* Mobile Menu Overlay */}
-        {mobileMenuOpen && (
-          <div className="fixed inset-0 z-[100] bg-[#fdf8f2] flex flex-col overflow-y-auto">
+        {/* Mobile Menu Backdrop */}
+        <div
+           className={`fixed inset-0 z-[99] bg-black/30 backdrop-blur-sm transition-opacity duration-300 ${mobileMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
+           onClick={() => setMobileMenuOpen(false)}
+           aria-hidden="true"
+        />
+
+        {/* Mobile Menu Drawer */}
+        <div
+           className={`fixed top-0 right-0 h-full w-[85%] max-w-sm z-[100] bg-background-light shadow-2xl transform transition-transform duration-300 ease-in-out flex flex-col ${mobileMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}
+           inert={!mobileMenuOpen ? "true" : undefined}
+           aria-hidden={!mobileMenuOpen}
+        >
              {/* Header inside mobile menu */}
-             <div className="flex items-center justify-between p-6 border-b border-text-main/10 bg-[#fdf8f2] sticky top-0 z-10">
+             <div className="flex items-center justify-between p-6 border-b border-text-main/10 bg-background-light">
                 <div className="flex items-center gap-2">
                    <div className="relative size-8 flex items-center justify-center">
                       <svg className="absolute text-primary w-full h-full" fill="currentColor" viewBox="0 0 100 100">
@@ -123,73 +133,75 @@ const Navigation: React.FC<NavigationProps> = ({ onOpenMuse }) => {
                 <button 
                   onClick={() => setMobileMenuOpen(false)} 
                   className="p-2 rounded-full hover:bg-black/5 transition-colors text-text-main"
+                  aria-label="Close menu"
                 >
-                  <span className="material-symbols-outlined text-[28px]">close</span>
+                  <span className="material-symbols-outlined text-[32px]">close</span>
                 </button>
              </div>
              
-             <div className="p-6 flex flex-col gap-6 bg-[#fdf8f2] min-h-0">
+             <div className="p-6 flex flex-col gap-6 bg-background-light overflow-y-auto flex-1">
                 {/* Search */}
                 <div 
                    onClick={() => { setMobileMenuOpen(false); setSearchOpen(true); }}
-                   className="w-full bg-white border border-text-main/10 rounded-full py-3 px-5 text-text-main flex items-center gap-3 shadow-sm cursor-text"
+                   className="w-full bg-white border border-text-main/10 rounded-full py-3 px-5 text-text-main flex items-center gap-3 shadow-sm cursor-text active:scale-[0.98] transition-transform"
                 >
                    <span className="material-symbols-outlined text-text-sub">search</span>
                    <span className="text-text-sub">Search products...</span>
                 </div>
 
                 {/* Main Links */}
-                <nav className="flex flex-col text-xl font-serif text-text-main space-y-2">
-                   <Link to="/" onClick={() => setMobileMenuOpen(false)} className="py-3 border-b border-text-main/5 flex justify-between items-center group">
+                <nav className="flex flex-col text-xl font-serif text-text-main space-y-1">
+                   <Link to="/" onClick={() => setMobileMenuOpen(false)} className="py-3 px-2 rounded-lg hover:bg-primary/5 flex justify-between items-center group transition-colors">
                       <span>Home</span>
                    </Link>
-                   <Link to="/new-arrivals" onClick={() => setMobileMenuOpen(false)} className="py-3 border-b border-text-main/5 flex justify-between items-center group">
+                   <Link to="/new-arrivals" onClick={() => setMobileMenuOpen(false)} className="py-3 px-2 rounded-lg hover:bg-primary/5 flex justify-between items-center group transition-colors">
                       <span>New Arrivals</span>
-                      <span className="material-symbols-outlined opacity-0 group-hover:opacity-50 transition-opacity">arrow_forward</span>
+                      <span className="material-symbols-outlined opacity-0 group-hover:opacity-100 text-primary transition-opacity">arrow_forward</span>
                    </Link>
-                   <Link to="/apparel" onClick={() => setMobileMenuOpen(false)} className="py-3 border-b border-text-main/5 flex justify-between items-center group">
+                   <Link to="/apparel" onClick={() => setMobileMenuOpen(false)} className="py-3 px-2 rounded-lg hover:bg-primary/5 flex justify-between items-center group transition-colors">
                       <span>Apparel</span>
-                      <span className="material-symbols-outlined opacity-0 group-hover:opacity-50 transition-opacity">arrow_forward</span>
+                      <span className="material-symbols-outlined opacity-0 group-hover:opacity-100 text-primary transition-opacity">arrow_forward</span>
                    </Link>
-                   <Link to="/accessories" onClick={() => setMobileMenuOpen(false)} className="py-3 border-b border-text-main/5 flex justify-between items-center group">
+                   <Link to="/accessories" onClick={() => setMobileMenuOpen(false)} className="py-3 px-2 rounded-lg hover:bg-primary/5 flex justify-between items-center group transition-colors">
                       <span>Accessories</span>
-                      <span className="material-symbols-outlined opacity-0 group-hover:opacity-50 transition-opacity">arrow_forward</span>
+                      <span className="material-symbols-outlined opacity-0 group-hover:opacity-100 text-primary transition-opacity">arrow_forward</span>
                    </Link>
-                   <Link to="/journal" onClick={() => setMobileMenuOpen(false)} className="py-3 border-b border-text-main/5 flex justify-between items-center group">
+                   <Link to="/journal" onClick={() => setMobileMenuOpen(false)} className="py-3 px-2 rounded-lg hover:bg-primary/5 flex justify-between items-center group transition-colors">
                       <span>Journal</span>
-                      <span className="material-symbols-outlined opacity-0 group-hover:opacity-50 transition-opacity">arrow_forward</span>
+                      <span className="material-symbols-outlined opacity-0 group-hover:opacity-100 text-primary transition-opacity">arrow_forward</span>
                    </Link>
                 </nav>
 
-                {/* Secondary Actions */}
-                <div className="grid grid-cols-2 gap-4 mt-2">
-                   <Link to="/login" onClick={() => setMobileMenuOpen(false)} className="flex flex-col items-center justify-center gap-2 p-4 bg-white border border-text-main/5 rounded-xl hover:border-primary/30 transition-colors">
-                      <span className="material-symbols-outlined text-2xl text-text-sub">person</span>
-                      <span className="text-sm font-medium text-text-main">Account</span>
-                   </Link>
-                   <Link to="/cart" onClick={() => setMobileMenuOpen(false)} className="flex flex-col items-center justify-center gap-2 p-4 bg-white border border-text-main/5 rounded-xl hover:border-primary/30 transition-colors">
-                      <span className="material-symbols-outlined text-2xl text-text-sub">shopping_bag</span>
-                      <span className="text-sm font-medium text-text-main">Cart</span>
-                   </Link>
-                </div>
+                <div className="mt-auto space-y-4">
+                    {/* Secondary Actions */}
+                    <div className="grid grid-cols-2 gap-4">
+                       <Link to="/login" onClick={() => setMobileMenuOpen(false)} className="flex flex-col items-center justify-center gap-2 p-4 bg-white border border-text-main/5 rounded-xl hover:border-primary/30 active:bg-primary/5 transition-colors">
+                          <span className="material-symbols-outlined text-2xl text-text-sub">person</span>
+                          <span className="text-sm font-medium text-text-main">Account</span>
+                       </Link>
+                       <Link to="/cart" onClick={() => setMobileMenuOpen(false)} className="flex flex-col items-center justify-center gap-2 p-4 bg-white border border-text-main/5 rounded-xl hover:border-primary/30 active:bg-primary/5 transition-colors">
+                          <span className="material-symbols-outlined text-2xl text-text-sub">shopping_bag</span>
+                          <span className="text-sm font-medium text-text-main">Cart</span>
+                       </Link>
+                    </div>
 
-                {/* Muse Banner */}
-                <button 
-                  onClick={() => { setMobileMenuOpen(false); onOpenMuse(); }}
-                  className="w-full p-4 bg-gradient-to-r from-primary/10 to-accent-orange/10 rounded-xl border border-primary/20 flex items-center justify-between group mt-2"
-                >
-                   <div className="flex items-center gap-3">
-                      <span className="material-symbols-outlined text-primary">auto_awesome</span>
-                      <div className="text-left">
-                         <p className="font-bold text-text-main text-sm">Ask Muse</p>
-                         <p className="text-xs text-text-sub">Your Personal AI Stylist</p>
-                      </div>
-                   </div>
-                   <span className="material-symbols-outlined text-primary group-hover:translate-x-1 transition-transform">arrow_forward</span>
-                </button>
+                    {/* Muse Banner */}
+                    <button
+                      onClick={() => { setMobileMenuOpen(false); onOpenMuse(); }}
+                      className="w-full p-4 bg-gradient-to-r from-primary/10 to-accent-orange/10 rounded-xl border border-primary/20 flex items-center justify-between group active:scale-[0.98] transition-all"
+                    >
+                       <div className="flex items-center gap-3">
+                          <span className="material-symbols-outlined text-primary">auto_awesome</span>
+                          <div className="text-left">
+                             <p className="font-bold text-text-main text-sm">Ask Muse</p>
+                             <p className="text-xs text-text-sub">Your Personal AI Stylist</p>
+                          </div>
+                       </div>
+                       <span className="material-symbols-outlined text-primary group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                    </button>
+                </div>
              </div>
           </div>
-        )}
       </header>
       
       <SearchOverlay isOpen={searchOpen} onClose={() => setSearchOpen(false)} />
