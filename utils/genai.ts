@@ -3,7 +3,8 @@ import { allProducts } from "../data";
 
 // Initialize the client
 // API Key must be provided in the environment environment
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+const apiKey = process.env.API_KEY;
+const ai = apiKey ? new GoogleGenAI({ apiKey }) : null;
 
 // Construct a context string from the product data
 const productContext = allProducts.map(p => 
@@ -27,6 +28,14 @@ Rules:
 `;
 
 export const createChatSession = () => {
+    if (!ai) {
+        console.warn("Gemini API Key is missing. Chat functionality will be disabled.");
+        return {
+            sendMessage: async () => ({
+                text: "I'm sorry, I can't chat right now because I'm not fully connected to my senses (API Key missing)."
+            })
+        };
+    }
     return ai.chats.create({
         model: 'gemini-3-flash-preview',
         config: {
