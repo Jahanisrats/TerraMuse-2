@@ -38,7 +38,9 @@ export const createChatSession = () => {
         // For now, let's return a mock that echoes back or explains the issue
         return {
             sendMessage: async () => ({
-                text: "I'm currently offline (API Key missing). Please check the configuration."
+                response: {
+                    text: () => "I'm currently offline (API Key missing). Please check the configuration."
+                }
             })
         };
     }
