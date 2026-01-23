@@ -87,24 +87,6 @@ const Home: React.FC = () => {
                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDjigXpglYo4leeMTu45JnJkXx1nU7aJ7aUJaK5Vls2fysIVGtOYNRfMNV8VXiQ1ihTdUwvRZ5lDgtW8FvbPBX_vVJdvj7bbHDa7EZ5luhhWn04fvDCuFcGcyLUxT0fti3ZyV5hMgMiDJ6y-0b8iShRwhJLgaxudU9NJCTrxfIML9RAFHhh4993OmrPc_GTpk_UKfiRw_MfNTepMM3BhuURPqBPoEyY83NR6_AOCBLi_5BJ9WlBUBpLPyDwcb6GET8T2R6YZnaPSE4"
              />
              
-             {/* Spinning Badge */}
-             <div className="absolute top-12 -left-6 md:-left-10 z-20 scroll-animate fade-in delay-500">
-               <div className="relative size-24 md:size-32 bg-background-light rounded-full flex items-center justify-center shadow-lg animate-spin-slow">
-                 <svg className="w-full h-full absolute inset-0 text-text-main" height="100" viewBox="0 0 100 100" width="100">
-                   <defs>
-                     <path d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0" id="circle"></path>
-                   </defs>
-                   <text fontSize="11" fontWeight="bold" letterSpacing="2">
-                     <textPath fill="currentColor" xlinkHref="#circle">
-                       NEW ARRIVAL • NEW ARRIVAL •
-                     </textPath>
-                   </text>
-                 </svg>
-                 <div className="size-16 md:size-20 bg-primary rounded-full flex items-center justify-center text-white font-bold text-xs md:text-sm shadow-inner">
-                   NOW
-                 </div>
-               </div>
-             </div>
 
              {/* Hover Card */}
              <div className="absolute bottom-8 right-8 z-20 bg-white/80 backdrop-blur-sm p-4 rounded-xl shadow-sm border border-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform translate-y-4 group-hover:translate-y-0">
