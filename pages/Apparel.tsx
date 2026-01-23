@@ -229,12 +229,12 @@ const Apparel: React.FC = () => {
          {/* Product Grid */}
          <div className="flex-grow min-w-0">
              {products.length > 0 ? (
-                 <div className="columns-1 sm:columns-2 lg:columns-3 gap-8 space-y-8">
+                 <div className="columns-2 sm:columns-2 lg:columns-3 gap-4 lg:gap-8 space-y-4 lg:space-y-8">
                      {displayedProducts.map((product, idx) => (
                         <Link 
                             to={`/product/${product.id}`} 
                             key={product.id} 
-                            className="break-inside-avoid group cursor-pointer mb-8 block scroll-animate fade-in"
+                            className="break-inside-avoid group cursor-pointer mb-4 lg:mb-8 block scroll-animate fade-in"
                             style={{ transitionDelay: `${(idx % 3) * 100}ms` }}
                         >
                            <div className="relative overflow-hidden rounded-xl bg-[#eaddcf] mb-4">
