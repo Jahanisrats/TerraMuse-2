@@ -40,7 +40,7 @@ const Journal: React.FC = () => {
             <div className="group relative w-full scroll-animate zoom-in">
                 <Link to="/journal/featured-story" className="block relative w-full aspect-[4/5] md:aspect-[16/9] lg:aspect-[21/9] overflow-hidden rounded-[2rem] shadow-xl shadow-text-main/5">
                     <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent z-10 opacity-60 group-hover:opacity-40 transition-opacity duration-700 pointer-events-none"></div>
-                    <img alt="Model in a natural setting for a cinematic slow living article" className="w-full h-full object-cover transform scale-105 group-hover:scale-100 transition-transform duration-[1.5s] ease-out" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDjigXpglYo4leeMTu45JnJkXx1nU7aJ7aUJaK5Vls2fysIVGtOYNRfMNV8VXiQ1ihTdUwvRZ5lDgtW8FvbPBX_vVJdvj7bbHDa7EZ5luhhWn04fvDCuFcGcyLUxT0fti3ZyV5hMgMiDJ6y-0b8iShRwhJLgaxudU9NJCTrxfIML9RAFHhh4993OmrPc_GTpk_UKfiRw_MfNTepMM3BhuURPqBPoEyY83NR6_AOCBLi_5BJ9WlBUBpLPyDwcb6GET8T2R6YZnaPSE4"/>
+                    <img alt="Model in a natural setting for a cinematic slow living article" className="w-full h-full object-cover transform scale-105 group-hover:scale-100 transition-transform duration-[1.5s] ease-out" src="https://images.pexels.com/photos/5709648/pexels-photo-5709648.jpeg"/>
                 </Link>
                 {/* Content Overlay */}
                 <div className="absolute bottom-0 left-0 w-full p-6 md:p-10 lg:p-16 z-20 flex flex-col items-start justify-end pointer-events-none">

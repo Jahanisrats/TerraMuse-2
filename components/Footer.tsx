@@ -60,7 +60,7 @@ const Footer: React.FC = () => {
         </div>
 
         <div className="border-t border-text-main/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-medium text-text-sub/60 uppercase tracking-widest">
-            <p>© 2024 TerraMuse. All rights reserved.</p>
+            <p>© 2026 TerraMuse. All rights reserved.</p>
             <div className="flex gap-8">
                 <Link to="/" className="hover:text-text-main transition-colors">Privacy Policy</Link>
                 <Link to="/" className="hover:text-text-main transition-colors">Terms of Use</Link>
