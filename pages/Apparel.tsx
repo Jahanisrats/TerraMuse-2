@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { allProducts } from '../data';
 import { Product } from '../types';
@@ -7,7 +7,6 @@ const Apparel: React.FC = () => {
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
   const [selectedColor, setSelectedColor] = useState<string | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-  const [visibleCount, setVisibleCount] = useState(6);
 
   const sizes = ['XS', 'S', 'M', 'L', 'XL'];
   
@@ -72,11 +71,6 @@ const Apparel: React.FC = () => {
       // Logic would go here in a real app
   }
 
-  // Reset pagination when filters change
-  useEffect(() => {
-    setVisibleCount(6);
-  }, [selectedCategory, selectedColor, selectedSize]);
-
   // Handle toggles
   const toggleSize = (size: string) => {
     setSelectedSize(prev => prev === size ? null : size);
@@ -90,11 +84,7 @@ const Apparel: React.FC = () => {
       setSelectedCategory(prev => prev === cat ? null : cat);
   };
 
-  const handleLoadMore = () => {
-    setVisibleCount(prev => prev + 6);
-  };
-
-  const displayedProducts = products.slice(0, visibleCount);
+  const displayedProducts = products;
 
   return (
     <main className="px-6 lg:px-12 pb-20 w-full max-w-[1600px] mx-auto relative z-10 pt-8">
@@ -239,12 +229,12 @@ const Apparel: React.FC = () => {
          {/* Product Grid */}
          <div className="flex-grow min-w-0">
              {products.length > 0 ? (
-                 <div className="columns-1 sm:columns-2 lg:columns-3 gap-8 space-y-8">
+                 <div className="columns-2 sm:columns-2 lg:columns-3 gap-4 lg:gap-8 space-y-4 lg:space-y-8">
                      {displayedProducts.map((product, idx) => (
                         <Link 
                             to={`/product/${product.id}`} 
                             key={product.id} 
-                            className="break-inside-avoid group cursor-pointer mb-8 block scroll-animate fade-in"
+                            className="break-inside-avoid group cursor-pointer mb-4 lg:mb-8 block scroll-animate fade-in"
                             style={{ transitionDelay: `${(idx % 3) * 100}ms` }}
                         >
                            <div className="relative overflow-hidden rounded-xl bg-[#eaddcf] mb-4">
@@ -288,16 +278,6 @@ const Apparel: React.FC = () => {
                 </div>
              )}
              
-             {visibleCount < products.length && (
-                <div className="mt-16 flex justify-center scroll-animate fade-in">
-                    <button 
-                        onClick={handleLoadMore}
-                        className="px-8 py-3 border border-text-main/20 hover:border-primary hover:bg-primary hover:text-white transition-all duration-300 text-sm font-bold tracking-widest uppercase rounded-full"
-                    >
-                        Load More
-                    </button>
-                </div>
-             )}
          </div>
       </div>
     </main>

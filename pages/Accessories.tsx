@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { allProducts } from '../data';
 import { Product } from '../types';
@@ -8,7 +8,6 @@ const Accessories: React.FC = () => {
     const [sortOption, setSortOption] = useState<string>('Featured');
     const [isSortOpen, setIsSortOpen] = useState(false);
     const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
-    const [visibleCount, setVisibleCount] = useState(6);
 
     // Base list
     let products = allProducts.filter(p => p.category === 'Accessories');
@@ -51,28 +50,19 @@ const Accessories: React.FC = () => {
         return 0;
     });
 
-    // Reset pagination on filter change
-    useEffect(() => {
-        setVisibleCount(6);
-    }, [activeCategory, sortOption]);
-
     const handleSortSelect = (option: string) => {
         setSortOption(option);
         setIsSortOpen(false);
     };
 
-    const handleLoadMore = () => {
-        setVisibleCount(prev => prev + 3);
-    };
-
-    const displayedProducts = products.slice(0, visibleCount);
+    const displayedProducts = products;
 
   return (
     <main className="w-full px-6 lg:px-12 pb-20 pt-8 relative">
         <section className="relative w-full mb-16 lg:mb-24">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-                <div className="lg:pr-12 order-2 lg:order-1 text-center lg:text-left scroll-animate slide-right">
-                    <div className="flex items-center justify-center lg:justify-start gap-3 mb-4 text-text-sub text-sm tracking-wider uppercase">
+            <div className="w-full max-w-4xl mx-auto text-center">
+                <div className="scroll-animate slide-right">
+                    <div className="flex items-center justify-center gap-3 mb-4 text-text-sub text-sm tracking-wider uppercase">
                         <Link to="/" className="hover:text-primary transition-colors">Home</Link>
                         <span className="w-4 h-px bg-primary/40"></span>
                         <span className="text-primary font-semibold">Accessories</span>
@@ -81,18 +71,9 @@ const Accessories: React.FC = () => {
                         Curated <br/>
                         <span className="italic text-primary">Artifacts</span>
                     </h1>
-                    <p className="text-lg text-text-main/70 max-w-md mx-auto lg:mx-0 font-light leading-relaxed">
+                    <p className="text-lg text-text-main/70 max-w-md mx-auto font-light leading-relaxed">
                         Discover our hand-selected collection of artisan jewelry, woven textures, and earth-inspired accents designed to ground your spirit.
                     </p>
-                </div>
-                <div className="relative order-1 lg:order-2 h-[400px] lg:h-[500px] w-full flex justify-center lg:justify-end scroll-animate zoom-in delay-200">
-                    <div className="absolute inset-0 bg-accent-sage/20 rounded-t-[50%] rounded-b-[2rem] transform translate-x-4 translate-y-4 lg:w-[90%] lg:ml-auto"></div>
-                    <div className="relative w-full lg:w-[90%] h-full rounded-t-[50%] rounded-b-[2rem] overflow-hidden shadow-xl z-10 group">
-                        <img alt="Accessories collection featured image" className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDjigXpglYo4leeMTu45JnJkXx1nU7aJ7aUJaK5Vls2fysIVGtOYNRfMNV8VXiQ1ihTdUwvRZ5lDgtW8FvbPBX_vVJdvj7bbHDa7EZ5luhhWn04fvDCuFcGcyLUxT0fti3ZyV5hMgMiDJ6y-0b8iShRwhJLgaxudU9NJCTrxfIML9RAFHhh4993OmrPc_GTpk_UKfiRw_MfNTepMM3BhuURPqBPoEyY83NR6_AOCBLi_5BJ9WlBUBpLPyDwcb6GET8T2R6YZnaPSE4"/>
-                        <svg className="absolute inset-0 w-full h-full pointer-events-none text-white/30" preserveAspectRatio="none" viewBox="0 0 100 100">
-                           <path d="M0,100 L0,50 Q50,0 100,50 L100,100" fill="none" stroke="currentColor" strokeWidth="2" vectorEffect="non-scaling-stroke"></path>
-                        </svg>
-                    </div>
                 </div>
             </div>
         </section>
@@ -200,7 +181,7 @@ const Accessories: React.FC = () => {
                 </div>
 
                 {products.length > 0 ? (
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16">
+                    <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-x-4 lg:gap-x-8 gap-y-8 lg:gap-y-16">
                         {displayedProducts.map((item, idx) => (
                             <Link 
                                 to={`/product/${item.id}`} 
@@ -234,17 +215,6 @@ const Accessories: React.FC = () => {
                             className="mt-4 text-sm text-primary underline hover:text-text-main"
                         >
                             Clear all filters
-                        </button>
-                    </div>
-                )}
-                
-                {visibleCount < products.length && (
-                    <div className="mt-20 flex justify-center scroll-animate fade-in">
-                        <button 
-                            onClick={handleLoadMore}
-                            className="group relative px-8 py-3 bg-transparent border border-primary text-text-main font-bold tracking-wide rounded-full hover:bg-primary hover:text-white transition-all duration-300 overflow-hidden"
-                        >
-                            <span className="relative z-10 flex items-center gap-2">Load More Artifacts</span>
                         </button>
                     </div>
                 )}
