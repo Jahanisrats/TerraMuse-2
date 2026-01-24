@@ -46,7 +46,7 @@ export const createChatSession = () => {
     }
 
     return ai.chats.create({
-        model: 'gemini-3-flash-preview',
+        model: 'gemini-2.5-flash-lite',
         config: {
             systemInstruction: SYSTEM_INSTRUCTION,
             temperature: 0.7,
