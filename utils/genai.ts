@@ -3,7 +3,7 @@ import { allProducts } from "../data";
 
 // Initialize the client
 // API Key must be provided in the environment environment
-const apiKey = "AIzaSyBusjk62lcduBdfEYLNaao_Z8l6BJ1COJY";
+const apiKey = "AIzaSyCIcxFKmUXSszcpt_KiyMfB12r74aSKXlc";
 let ai: GoogleGenAI | null = null;
 
 if (apiKey) {
